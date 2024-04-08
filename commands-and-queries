@@ -1,0 +1,964 @@
+--This project is a mini relational database system created using Oracle 10g. It serves as a practical tool for learning SQL for me, and it has commands for table creation and queries for retrieving data from the database.
+
+_____________________________________________________
+Create table Dept_05(
+Dept_Id number primary key,
+D_Name varchar2(100),
+D_Loc varchar2(50),
+HOD_Id number
+);
+_________________________________________________________
+Create table Student_05(
+Dept_Id number,
+Roll_no number primary key,
+Email varchar2(50),
+Mob_no number unique,
+Addr1 varchar2(200),
+Addr2 varchar2(200),
+State varchar2(100),
+Pin number,
+City varchar2(100),
+F_name varchar2(200) NOT NULL,
+L_name varchar2(200),
+DOB date
+);
+
+____________________________________________________________
+Create table Faculty_05(
+Dept_Id number,
+Fac_Id number primary key,
+Email varchar2(50),
+Mob_No number unique,
+Addr1 varchar2(200),
+Addr2 varchar2(200),
+City varchar2(100),
+State varchar2(100),
+Pin number,
+F_name varchar2(100) NOT NULL,
+L_name varchar2(100),
+DOB date
+);
+_____________________________________________________________
+Create table Subject_05(
+Sub_code varchar2(50) primary key,
+Sub_name varchar2(100)
+);
+________________________________________________________________
+Create table Fac_Sub_05(
+Fac_Id number,
+Sub_code varchar2(50),
+CONSTRAINT Fac_Sub_pk PRIMARY KEY (Fac_Id,Sub_code)
+);
+______________________________________________________________
+CREATE TABLE Marks_05(
+Exam_code varchar2(20),
+Roll_no number,
+Sub_code varchar2(50),
+Marks number not null,
+CONSTRAINT Marks_pk PRIMARY KEY (Exam_code,Roll_no,Sub_code)
+);
+desc MArks_05;
+______________________________________________________________________
+ALTER TABLE Student_05
+ADD CONSTRAINT Student_fk
+FOREIGN KEY (Dept_Id) REFERENCES Dept_05(Dept_Id);
+desc Student_05;
+__________________________________________________________________________
+ALTER TABLE Faculty_05
+ADD CONSTRAINT Faculty_fk
+FOREIGN KEY (Dept_Id) REFERENCES Dept_05(Dept_Id);
+desc Faculty_05;
+_____________________________________________________________________________________________________
+INSERT ALL
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS401','Discrete Mathematics')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS402','Computer Architecture')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS403','Formal Language & Automata Theory')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS404','Design & Analysis of Algorithms')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('BSC401','Biology')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('MC401','Environmental Sciences')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('ESC501','Software Engineering')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS501','Compiler Design')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS502','Operating Systems')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS503','Object Oriented Programming')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('HSMC-501','Introduction to Industrial Management')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-IT501B','Artificial Intelligence')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS601','Database Management Systems')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PCC-CS602','Computer Networks')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-IT601D','Image Processing')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-IT602C','Human Computer Interaction')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('OEC-IT601A','Numerical Methods')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PROJ-CS601','Research Methodology')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-CS701A','Neural Networks')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-CS701B','Deep Learning')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('PEC-CS701C','Soft Computing')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('OEC-CS701A','Operations Research')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('OEC_CS701B','Multimedia Systems')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('EC601','Control System & Instrumentation')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('EC501','Electromagnetic Waves')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('EC504','Digital Signal Processing')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('ESEE101','Basic Electrical Engineering')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('ESME291','Engineering Graphics & Design')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('BSPH101','Physics')
+INTO Subject_05 (Sub_code, Sub_name)VALUES ('ESME192','Workshop/Manufacturing Practices')
+SELECT * FROM dual;
+
+_______________________________________________________________________________________________________________________
+INSERT ALL
+INTO Student_05 (Dept_Id,Roll_no,Email,Mob_no,Addr1,Addr2,State,Pin,City,F_name,L_name,DOB) VALUES (04,14400123021,'priyadarsini02@gmail.com',1203014584,'Bishnupur, South 24 pgs','Priyadarsini','Halder','24-APR-00')
+SELECT * FROM dual;
+--Since, I used real data of people so removed all data of student table from here for privacy purpose.
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+INSERT ALL
+INTO Dept_05 (Dept_Id,D_Name,D_Loc,HOD_Id) VALUES (01,'Computer Science Engineering','SB1',151)
+INTO Dept_05 (Dept_Id,D_Name,D_Loc,HOD_Id) VALUES (02,'Information Technology','SB2',155)
+INTO Dept_05 (Dept_Id,D_Name,D_Loc,HOD_Id) VALUES (03,'Electronics and Communication Engineering','SB1',157)
+INTO Dept_05 (Dept_Id,D_Name,D_Loc,HOD_Id) VALUES (04,'Electrical Engineering','SB3',150)
+SELECT * FROM dual;
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+INSERT ALL
+INTO Faculty_05 (Dept_Id,Fac_Id,Email,Mob_No,Addr1,Addr2,City,State,Pin,F_name,L_name,DOB) VALUES (01,150,'bijaysingham@gmail.com',9400205238,'Salt Lake','Kolkata','Kolkata','West Bengal',700019,'Bijay','Singham','01-MAR-84')
+SELECT * FROM dual;
+--Since, I used real data of people so removed all data of faculty table from here for privacy purpose.
+
+_____________________________________________________________________________________________________________
+INSERT ALL
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (151,'ESC501')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (152,'PCC-CS502')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (152,'PEC-IT501B')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (153,'PCC-CS602')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (154,'PCC-CS403')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (155,'PEC-CS701A')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (156,'PCC-CS401')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (154,'PEC-CS701C')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (158,'BSC401')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (159,'HSMC-501')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (150,'ESEE101')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (151,'PCC-CS601')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (152,'PCC-CS402')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (153,'OEC-CS701A')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (154,'PCC-CS404')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (155,'ESME291')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (158,'EC504')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (157,'EC601')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (158,'MC401')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (158,'PEC-IT601D')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (159,'EC501')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (151,'PEC-IT602C')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (152,'PCC-CS503')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (153,'OEC-IT601A')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (154,'PROJ-CS601')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (155,'PEC-CS701B')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (150,'BSPH101')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (152,'OEC_CS701B')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (150,'ESME192')
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (154,'PCC-CS501')
+SELECT * FROM dual;
+_________________________________________________________________________________________________________________
+INSERT ALL
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120001,'ESC501',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120002,'PCC-CS502',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400120003,'PEC-IT501B',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120008,'PCC-CS502',14)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120005,'PCC-CS601',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120006,'PEC-CS701A',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400120007,'PCC-CS401',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA4',14400120008,'HSMC-501',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400121011,'BSC401',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400121012,'PEC-CS701C',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400121013,'PEC-IT602C',23)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400121014,'PCC-CS601',18)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400121011,'PCC-CS402',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400121012,'OEC-CS701A',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400121013,'PCC-CS404',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400122015,'ESME291',19)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400122017,'EC504',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400122017,'EC601',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400122018,'MC401',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400122015,'PEC-IT601D',23)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400122016,'EC501',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400123019,'ESEE101',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400123020,'BSPH101',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400123021,'OEC-IT601A',23)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA4',14400123019,'PROJ-CS601',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400123020,'ESME192',19)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400123021,'HSMC-501',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400120005,'PEC-IT501B',25)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120004,'PCC-CS601',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120006,'PCC-CS403',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400121012,'PEC-CS701A',23)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400121012,'PCC-CS401',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA4',14400121012,'PEC-CS701C',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120001,'BSC401',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120002,'HSMC-501',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400122018,'ESEE101',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120003,'PCC-CS601',19) 
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120007,'PCC-CS402',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400121014,'OEC-CS701A',20)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400121015,'PCC-CS404',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400122017,'ESME291',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400122016,'EC504',25)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400122018,'EC601',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400121011,'MC401',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400121012,'PEC-IT601D',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400121013,'EC501',21)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400121015,'PEC-IT602C',23)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120010,'PCC-CS503',22)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA3',14400120001,'OEC-IT601A',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA4',14400120005,'PROJ-CS601',23)
+SELECT * FROM dual;
+
+
+________________________________________________________________________________________________________________________________________
+3:
+SELECT dept_id,f_name,l_nmae,city FROM student_05
+WHERE City IN ('Patna','Kolkata');
+//
+___________________________________________________________
+4:
+SELECT * FROM faculty_05
+WHERE city='Durgapur';
+
+________________________________________________________
+5:
+SELECT F_name, L_name ,d_name
+FROM Student_05,Dept_05
+WHERE Student_05.dept_id=Dept_05.dept_id AND
+Dept_05.d_name='Computer Science Engineering';
+
+____________________________________________________________
+6:
+SELECT hod_id FROM dept_05
+WHERE dept_id=1;
+
+SELECT F_name,L_name FROM faculty_05
+WHERE fac_id=151;
+
+OR
+
+select f_name,l_name from dept_05,faculty_05
+where faculty_05.fac_id=dept_05.hod_id
+and dept_05.d_name='Computer Science Engineering';
+____________________________________________________________________________
+7:
+SELECT fac_id FROM faculty_05
+WHERE f_name='Sunanda' and l_name='Sinha';
+
+SELECT sub_code FROM fac_sub_05
+WHERE fac_id=151;
+
+OR
+
+select sub_name from subject_05,fac_sub_05,faculty_05
+where faculty_05.fac_id=fac_sub_05.fac_id
+and fac_sub_05.sub_code=subject_05.sub_code
+and faculty_05.f_name='Sunanda' 
+and faculty_05.l_name='Sinha';
+_______________________________________________________________________
+8
+SELECT sub_code FROM subject_05
+WHERE sub_name='Artificial Intelligence';
+
+SELECT fac_id FROM fac_sub_05
+WHERE sub_code='PEC-IT501B';
+
+SELECT f_name,l_name FROM faculty_05
+WHERE fac_id=152;
+
+OR
+
+select subject_05.sub_name,fac_sub_05.fac_id,faculty_05.f_name,faculty_05.l_name
+from subject_05,faculty_05,fac_sub_05
+where faculty_05.fac_id=fac_sub_05.fac_id
+and subject_05.sub_code=fac_sub_05.sub_code
+and subject_05.sub_name='Project Management and Enterpreneurship';
+
+_____________________________________________________________
+9
+SELECT f_name,l_name,mob_no FROM faculty_05
+WHERE mob_no LIKE '9%';
+
+_______________________________________________________________
+10
+SELECT f_name,l_name,mob_no FROM student_05
+WHERE mob_no LIKE '8_5%';
+______________________________________________________________________________________
+11
+SELECT F_name,l_name FROM Student_05
+WHERE L_name='Ghosh' or L_name='Das' or l_name='Pal' or l_name='Halder';
+
+____________________________________________________________________________________________
+12
+SELECT Dept_id,D_name,D_loc FROM dept_05
+WHERE d_loc='SB1';
+
+_____________________________________________________________________
+13
+SELECT f_name,l_name FROM student_05
+ORDER BY f_name;
+
+__________________________________________________________________
+14
+SELECT fac_id,f_name,l_name FROM faculty_05
+ORDER BY l_name desc;
+
+____________________________________________________________________
+15
+ALTER TABLE faculty_05
+ADD DOJ date;
+select f_name,l_name,DOJ from faculty_05;
+
+_______________________________________________________________________________
+16
+SELECT COUNT(roll_no)
+FROM student_05;
+
+__________________________________________________________________
+17
+SELECT COUNT(fac_id)
+FROM faculty_05
+where dept_id=3;
+
+__________________________________________________________
+18
+SELECT DISTINCT city FROM student_05;
+
+__________________________________________________________
+19
+SELECT DISTINCT state FROM faculty_05;
+
+_____________________________________________________________
+20
+select sub_code from subject_05
+where sub_name='Database Management Systems';
+
+SELECT roll_no FROM marks_05
+WHERE marks=23 and exam_code='CA4' and sub_code='PCC-CS601';
+
+OR
+
+select f_name,l_name from student_05,marks_05,subject_05
+where subject_05.sub_code=marks_05.sub_code
+and marks_05.roll_no=student_05.roll_no
+and marks_05.exam_code='CA1'
+and marks_05.marks=24;
+_____________________________________________________________________________________
+21
+select sub_code from subject_05
+where sub_name='Operating Systems';
+
+SELECT roll_no FROM marks_05
+WHERE marks<21 and exam_code='CA2' and sub_code='PCC-CS502';
+
+OR
+
+select f_name,l_name from student_05,marks_05,subject_05
+where subject_05.sub_code=marks_05.sub_code
+and marks_05.roll_no=student_05.roll_no
+and marks_05.exam_code='CA2'
+and marks_05.marks < 15
+and subject_05.sub_name='Operating Systems';
+
+____________________________________________________________________________________________
+22
+select sub_code from subject_05
+where sub_name='Database Management Systems';
+
+SELECT roll_no FROM marks_05
+WHERE marks between 15 and 24 and exam_code='CA4' and sub_code='PCC-CS601';
+
+OR
+
+select f_name,l_name,marks from student_05,marks_05,subject_05
+where subject_05.sub_code=marks_05.sub_code
+and marks_05.roll_no=student_05.roll_no
+and marks_05.exam_code='CA1'
+and marks_05.marks between 15 and 20
+and subject_05.sub_name='Database Management Systems';
+___________________________________________________________________________________________________
+23
+SELECT f_name,l_name FROM faculty_05
+WHERE not city='Kolkata';
+
+____________________________________________________________________________________
+24
+SELECT f_name,l_name FROM student_05
+WHERE not (city='Durgapur' or city='Patna');
+
+
+______________________________________________________________________________
+25
+select f_name,l_name from student_05
+where l_name='';
+
+__________________________________________________________________
+26
+DELETE FROM faculty_05 WHERE f_name='Sudeshna';
+
+_____________________________________________________________________________________________
+27
+SELECT MAX(marks) FROM Marks_05
+WHERE sub_code='PCC-CS601';
+
+SELECT roll_no FROM Marks_05
+WHERE marks=23 and sub_code='PCC-CS601' and exam_code='CA1';
+
+OR
+
+select f_name,l_name from marks_05,student_05,subject_05
+where subject_05.sub_code=marks_05.sub_code
+and marks_05.roll_no=student_05.roll_no
+and marks_05.exam_code='CA1'
+and subject_05.sub_name='Database Management Systems'
+and marks_05.marks=(select max(marks) from marks_05 
+where subject_05.sub_code=marks_05.sub_code);
+
+________________________________________________________________________________________________
+28
+SELECT Min(marks) FROM Marks_05
+WHERE sub_code='PCC-CS502';
+
+SELECT roll_no FROM Marks_05
+WHERE marks=20 and sub_code='PCC-CS502' and exam_code='CA2';
+
+OR
+
+select f_name,l_name from marks_05,student_05,subject_05
+where subject_05.sub_code=marks_05.sub_code
+and marks_05.roll_no=student_05.roll_no
+and marks_05.exam_code='CA1'
+and subject_05.sub_name='Operating Systems'
+and marks_05.marks=(select min(marks) from marks_05 
+where subject_05.sub_code=marks_05.sub_code);
+_________________________________________________________________________________________________
+29
+SELECT AVG(marks) FROM marks_05
+WHERE sub_code='PCC-CS601';
+
+_______________________________________________________________________
+30
+SELECT COUNT(roll_no)
+FROM marks_05
+WHERE marks>20 and sub_code='PCC-CS601';
+
+OR
+
+select count(roll_no)
+from marks_05,subject_05
+where marks_05.marks > 20
+and subject_05.sub_code=marks_05.sub_code
+and subject_05.sub_name='Database Management Systems'
+and marks_05.exam_code='CA2';
+________________________________
+31
+SELECT sum(marks)
+FROM marks_05
+WHERE roll_no=14400120001 and exam_code='CA1';
+
+______________________________________________________________________
+32
+SELECT f_name,l_name FROM student_05
+WHERE l_name LIKE 'A%';
+
+____________________________________________________________________
+33
+SELECT f_name,l_name FROM faculty_05
+WHERE f_name LIKE 'S%';
+
+_______________________________________________________________________
+34
+SELECT f_name,l_name FROM faculty_05
+WHERE not (State='Bihar' or State='Jharkhand');
+_____________________________________________________________________
+35
+SELECT f_name,l_name FROM faculty_05
+WHERE DOJ BETWEEN '1-JAN-10' AND '1-JAN-12';
+
+________________________________________________________________________
+36
+SELECT f_name,l_name FROM student_05
+WHERE DOB between '01-JAN-01' and '1-JAN-02';
+
+_________________________________________________________________________
+37
+SELECT f_name AS First_Name
+FROM faculty_05;
+_____________________________________________________________________________
+38
+SELECT city FROM student_05
+UNION
+SELECT city FROM faculty_05;
+
+___________________________________________________________________________
+//DOJ Updated
+
+UPDATE faculty_05
+SET DOJ = '2-JUN-13'
+where fac_id=150;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+____________________________________________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+1
+select count(roll_no)
+from student_05
+where city='Patna';
+
+____________________________________________________________
+2
+select count(fac_id)
+from faculty_05,dept_05
+where faculty_05.dept_id=dept_05.dept_id
+and dept_05.d_name='Computer Science Engineering';
+
+______________________________________________________________________________
+3
+SELECT state, COUNT(*) 
+FROM student_05 
+GROUP BY state
+order by count(*) desc;
+
+____________________________________________________________________________
+4
+SELECT A.F_name AS fac1, B.F_name AS fac2, A.City
+FROM Faculty_05 A, Faculty_05 B
+WHERE A.fac_id <> B.fac_id
+AND A.pin = B.pin
+ORDER BY A.pin;
+
+_________________________________________________________________
+5
+SELECT avg(num) 
+FROM (
+select count(*) as num, hod_id
+from dept_05, faculty_05 where
+faculty_05.dept_id=dept_05.dept_id
+GROUP BY hod_id);
+
+_____________________________________________________________________________________
+6 
+//COUNT(*) with GROUP BY returns the number of rows in each group
+SELECT dept_id, COUNT(*) 
+FROM Student_05 
+GROUP BY dept_id
+having count(*)>5;
+
+_______________________________________________________________________________________
+7
+SELECT dept_id, COUNT(*) 
+FROM faculty_05 
+GROUP BY dept_id
+having count(*)>3
+order by 2;
+
+____________________________________________________________________________________________
+
+
+PL/SQL:-
+____________________________________________________________________________________________________
+1
+CREATE SEQUENCE dept_id_seq
+  START WITH 5
+  INCREMENT BY 1
+  NOCACHE
+  NOCYCLE;
+
+//insert a new row to check
+insert into dept_05(dept_id,d_name, d_loc, HOD_id)
+values(dept_id_seq.nextval,'Mechanical Engineering', 'SB3');
+//insert a new row to check
+insert into dept_05(dept_id,d_name, d_loc, HOD_id)
+values(dept_id_seq0.nextval,'Ocean Engineering', 'SB2',null);
+
+DROP SEQUENCE dept_id_seq;
+
+select * from dept_05;
+
+________________________________________________________________________________________________________
+2
+CREATE SYNONYM fac_syn
+  FOR faculty_05;
+
+select * from fac_syn;
+
+________________________________________________________________________________________
+3
+CREATE OR REPLACE TRIGGER trig_marks_absent
+BEFORE INSERT OR UPDATE OF marks ON marks_05
+FOR EACH ROW
+BEGIN
+  IF :new.marks IS NULL THEN
+    :new.marks := 0;
+  END IF;
+END;
+
+//insert a new row to check
+INSERT INTO Marks_05 (Exam_code,Roll_no,Sub_code) 
+VALUES ('CA1',14400120005,'ESME192');
+INSERT INTO Marks_05 
+VALUES ('CA1',14400120005,'PCC-CS502',null);
+
+select * from marks_05;
+__________________________________________________________________________________________
+4
+select * from facultY_05
+
+insert into Faculty_05 values (4,166, 'tarun.nayak@gamil.com', 9300111148,'Gopath Pal Road','Kolkata','Kolkata','West Bengal', 796401, 'Taun', 'Nar','16-JAN-1982',null,null);
+
+{
+/*extra data*/ 
+insert into Faculty values (4, 12, 'arun.naskar@gmail.com', 9302215498, 20, 'Gopatth Pal Road', 'Wheat Bengl', 796401, 'Asansl', '16-JAN-1982', 'Taun2', 'Nar',null,null);
+insert into Faculty values (4, 13, 'arunima.sarkar@gmail.com', 9200115440, 20, 'Gopath  Pal Road', 'Wett Bengl', 796401, 'Asansl', '16-JAN-1982', 'Taun3', 'Nar',null,null);
+}
+
+create or replace trigger delfac
+after delete on faculty_05
+for each row
+declare 
+begin
+insert into faculty_left values(:old.fac_id, :old.f_name, :old.doj, sysdate);
+end;
+
+create table faculty_left(
+fac_id number primary key,
+fac_name varchar2(50),
+doj DATE,
+dol DATE);
+
+delete from faculty_05 where fac_id='166'
+select * from faculty_left;
+
+
+
+
+drop trigger trig_fac_delete
+
+select * from faculty_left
+
+drop table faculty_left
+
+
+___________________________________________________________________________________________
+5
+
+select d_name from
+student_05 right join dept_05 on student_05.dept_id=dept_05.dept_id where roll_no is null
+
+OR
+
+SELECT d.*
+FROM dept_05 d
+LEFT JOIN student_05 s
+ON d.dept_id = s.dept_id
+WHERE s.dept_id IS NULL;
+
+_____________________________________________________________________________________
+6
+SELECT f.f_name,l_name
+FROM faculty_05 f
+LEFT JOIN dept_05 d
+ON f.dept_id = d.dept_id
+WHERE d.hod_id IS NULL;
+
+OR
+
+select f_name,l_name from
+faculty_05 join dept_05 on faculty_05.dept_id=dept_05.dept_id where hod_id is null
+
+INSERT All
+INTO Faculty_05 (Dept_Id,Fac_Id,Email,Mob_No,Addr1,Addr2,City,State,Pin,F_name,L_name,DOB,DOJ) VALUES (05,160,'vartikasinha@gmail.com',9242234265,'Boring Road','Patna','Patna','Bihar',800013,'Vartika','Sinha','18-JUL-90','1-JUN-14')
+INTO Faculty_05 (Dept_Id,Fac_Id,Email,Mob_No,Addr1,Addr2,City,State,Pin,F_name,L_name,DOB,DOJ) VALUES (05,162,'aryankumar@gmail.com',7742234265,'Delha','Gaya','Gaya','Bihar',823001,'Aryan','Kumar','10-Jan-88','11-MAR-13')
+select * from dual;
+select * from dept_05;
+
+select  * from faculty_05;
+
+DELETE FROM dept_05 WHERE dept_id=5;
+
+__________________________________________________________________________________________
+7
+SELECT s.*
+FROM subject_05 s
+RIGHT JOIN fac_sub_05 fs
+ON s.sub_code = fs.sub_code
+WHERE s.sub_code IS NULL;
+
+
+OR
+
+select sub_name from
+subject_05 left join fac_sub_05 on subject_05.sub_code=fac_sub_05.sub_code where fac_id is null
+
+INSERT 
+INTO Subject_05 VALUES ('PCC-602A','Geography');
+
+________________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------------
+_______________________________________________________________________________________________________
+1.
+
+create or replace procedure factorial(num in number,f out number)
+is
+begin
+if (num = 0) then
+  f := 1;
+else
+  factorial(num-1,f);
+  f := num * f;
+end if;
+end;
+
+declare
+res number;
+begin
+factorial(5, res);
+dbms_output.put_line('factorial of 5 is: '||res);
+end;
+
+
+-------------------------------------------------------------------------------------------
+
+2.
+
+create or replace procedure graceMarks
+as
+begin
+update marks_05 set marks_05.marks=
+(case
+ when marks_05.marks+2>25 then 25
+ else marks_05.marks+2
+end)
+where marks_05.exam_code='CA3' and sub_code in (select sub_code from subject_05 where sub_name='Database Management Systems');
+end;
+
+begin
+ graceMarks;
+end;
+
+------------------------------------------------------------------------------------
+
+3.
+
+create or replace function get_CA(roll in number)
+return varchar2 is
+
+ca varchar2(5);
+
+begin
+
+  select exam_code into ca from (select * from marks_05 
+  where roll_no=roll 
+  and sub_code in(select sub_code from subject_05 where sub_name='Database Management Systems')
+  and marks in(select max(marks) from marks_05 join subject_05 on subject_05.sub_code=marks_05.sub_code where sub_name='Database Management Systems' and roll_no=roll)) where rownum=1;
+ 
+  return ca;
+end;
+
+declare
+ca varchar2(5);
+begin
+ca:=get_CA(14400120005);
+dbms_output.put_line(ca);
+end;
+
+-----------------------------------------------------------------------
+
+4.
+
+create or replace function get_subj(f in varchar2)
+return varchar2 is
+
+sname varchar2(100);
+
+begin
+
+  select sub_name into sname from(select * 
+    from(
+      select * from subject_05 join marks_05 on subject_05.sub_code=marks_05.sub_code
+      join student_05 on student_05.roll_no=marks_05.roll_no
+      where f_name='Soumya' and marks_05.exam_code='CA3'
+      order by marks_05.marks)
+    where rownum=1);
+ 
+  return sname;
+end;
+
+declare
+s varchar2(50);
+begin
+s:=get_subj('Soumya');
+dbms_output.put_line(s);
+end;
+
+---------------------------------------------------------------------------------
+
+5.
+
+create or replace trigger trigException
+before insert or update on marks_05
+for each row
+begin
+  if :new.marks > 25 then
+    raise_application_error(-20001, 'Cannot enter marks greater than 25');
+  end if;
+end;
+---------------------------------------------------------------------------------
+
+6.
+II
+
+DECLARE 	
+v_name varchar2(50); 
+BEGIN 	
+SELECT f_name into v_name 
+from student_05 where dept_id=5;
+EXCEPTION 
+WHEN no_data_found THEN
+dbms_output.put_line('No student found!');
+END;
+
+select * from faculty_05;
+
+I
+
+DECLARE 	
+
+BEGIN 	
+insert INTO Faculty_05 values(01,163,'sakshiroy@gmail.com',9722234265,'Diwan Nagar','Ranchi','Ranchi','Jharkhand',834001,'Sakshi','Roy','18-JUL-91',null,null);
+
+EXCEPTION 
+WHEN dup_val_on_index THEN
+dbms_output.put_line('duplicate phn no!');
+
+END;
+
+
+III
+
+DECLARE 	
+v_name varchar2(50);
+
+BEGIN 	
+select f_name into v_name from student_05 where dept_id=1;
+
+EXCEPTION 
+WHEN too_many_rows THEN
+dbms_output.put_line('too many rows!');
+
+END;
+
+
+
+IV
+
+
+DECLARE
+  v_student student_05%ROWTYPE;
+  v_subject subject_05%ROWTYPE;
+BEGIN
+  SELECT * INTO v_student FROM student_05 where roll_no=14400120005;
+  SELECT * INTO v_subject FROM subject_05 where sub_name='Database Management Systems';
+  v_student.mob_no:=v_subject.sub_name;
+
+EXCEPTION
+ 
+  WHEN others THEN
+  if sqlcode='-6502' then
+    dbms_output.put_line('Rowtype mismatch - the variables used do not match the structure of the row returned!');
+  else
+     dbms_output.put_line(sqlcode);
+  end if;
+END;
+
+V
+
+declare
+ a number:=2;
+ b number:=0;
+ c number;
+
+begin
+ c:=a/b;
+exception
+ when zero_divide then
+    dbms_output.put_line('cannot divide by zero');
+end;
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+7
+
+select sub_name, f1.f_name||' '||f1.l_name as fac1, f2.f_name||' '||f2.l_name as fac2
+from subject_05
+join fac_sub_05 fs1
+on fs1.sub_code=subject_05.sub_code
+join fac_sub_05 fs2
+on fs2.sub_code=subject_05.sub_code
+join faculty_05 f1
+on fs1.fac_id=f1.fac_id
+join faculty_05 f2
+on fs2.fac_id=f2.fac_id
+where fs1.fac_id<>fs2.fac_id
+order by sub_name, fac1, fac2
+
+
+insert
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (163,'PCC-CS601');
+insert
+INTO Fac_Sub_05 (Fac_Id,Sub_code) VALUES (153,'PCC-CS501');
+
+select *  from fac_sub_05;
+
+
+insert INTO Faculty_05 values(01,163,'sakshiroy@gmail.com',9723234265,'Diwan Nagar','Ranchi','Ranchi','Jharkhand',834001,'Sakshi','Roy','18-JUL-91',null,null);
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+________________________________________________________________________________________________________________________________________________________________________________________________________
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Edits 
+
+select * from fac_sub_05;
+
+Select * from subject_05;
+
+INSERT
+INTO Subject_05 VALUES ('PCC-701','Project Management and Enterpreneurship');
+
+INSERT
+INTO Fac_Sub_05 VALUES (164,'PCC-701');
+
+select * from student_05;
+
+INSERT 
+INTO Student_05 (Dept_Id,Roll_no,Email,Mob_no,Addr1,Addr2,State,Pin,City,F_name,L_name,DOB) VALUES (01,14400120011,'ayeshaaziz@gmail.com',8053234265,'Esplanade','Esplanade','West Bengal',740013,'Kolkata','Ayesha','Aziz','11-MAY-01');
+INSERT
+INTO Student_05 (Dept_Id,Roll_no,Email,Mob_no,Addr1,Addr2,State,Pin,City,F_name,L_name,DOB) VALUES (01,14400120012,'ritambhara@gmail.com',8053211265,'Patliputra','Patliputra','Bihar',800013,'Patna','Ritambhara',NULL,'06-AUG-01');
+
+
+select * from marks_05;
+
+INSERT ALL
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120011,'PCC-CS601',24)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA2',14400120001,'PCC-CS502',12)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120003,'PCC-CS502',14)
+INTO Marks_05 (Exam_code,Roll_no,Sub_code,Marks) VALUES ('CA1',14400120001,'PCC-CS502',22)
+select * from dual;
+
+
+INSERT ALL
+INTO Student_05 (Dept_Id,Roll_no,Email,Mob_no,Addr1,Addr2,State,Pin,City,F_name,L_name,DOB) VALUES (02,14400120013,'suitimanna@gmail.com',9775234222,'Medinapur','Medinapur','West Bengal',750513,'Medinapur','Suiti','Manna','08-MAY-01')
+INTO Student_05 (Dept_Id,Roll_no,Email,Mob_no,Addr1,Addr2,State,Pin,City,F_name,L_name,DOB) VALUES (02,14400120014,'amitghosh@gmail.com',9980609963,'Durgapur','Durgapur','West Bengal',723377,'Durgapur','Amit','Ghosh','14-NOV-02')
+select * from dual;
+
+INSERT 
+INTO Faculty_05 (Dept_Id,Fac_Id,Email,Mob_No,Addr1,Addr2,City,State,Pin,F_name,L_name,DOB) VALUES (02,165,'akashray@gmail.com',8712234265,'Road-1,Durgapur','Durgapur','Durgapur','West Bengal',700206,'Akash','Ray','23-NOV-84');
+
